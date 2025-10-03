@@ -24,7 +24,10 @@ int main()
     ReviewNode* head = nullptr;
     int mode;
     
-    cout << "which of the linked list method should we use? (1 for head, 2 for tail): ";
+    cout << "Which linked list method should we use?\n";
+    cout << "    [1] New nodes are added at the head of the linked list\n";
+    cout << "    [2] New nodes are added at the tail of the linked list\n";
+    cout << "    Choice: ";
     cin >> mode;
     cin.ignore(); // to clear the newline character from the input buffer
 
@@ -50,9 +53,25 @@ int main()
         {
             addTail(head, rating, comment);
         }
+        reviewCount++;// increment the review count
+
+        cout << "Add another review? (y/n): ";
+        string respuesta;
+        getline(cin, respuesta);
+
+        moreR = (respuesta == "y" || respuesta == "Y");
 
     }
 
+    cout << "\nOutputting all reviews:\n";
+    displayReviews(head);
+
+    double avg = averageRating(head);
+    cout << fixed << setprecision(1);
+    cout << "Average rating: " << avg << " out of 5.0 from " << reviewCount << " reviews.\n";
+
+    deleteList(head);
+    return 0;
 
 }
 
@@ -111,4 +130,17 @@ void displayReviews(ReviewNode* head)
         current = current->next;
         ++count;
     }
+}
+
+//delete all the nodes in the list
+void deleteList(ReviewNode*& head)
+{
+    ReviewNode* current = head;
+    while (current)
+    {
+        ReviewNode* temp = current;
+        current = current->next;
+        delete temp;
+    }
+    head = nullptr; // set head to nullptr after deleting the list
 }
