@@ -105,20 +105,7 @@ void addTail(ReviewNode*& head, double rating, const string& comment)
     current->next = newNode;
 }
 
-double averageRating(ReviewNode* head)
-{
-    double sum = 0.0;
-    int count = 0;
-    ReviewNode* current = head;
-    while (current)
-    {
-        sum += current->rating;
-        count++;
-        current = current->next;
-    }
-    return count > 0 ? sum / count : 0.0;
-}
-
+//display all the reviews in the list
 void displayReviews(ReviewNode* head)
 {
     int count = 1;
@@ -143,4 +130,19 @@ void deleteList(ReviewNode*& head)
         delete temp;
     }
     head = nullptr; // set head to nullptr after deleting the list
+}
+
+//calculate the average rating of all reviews in the list
+double averageRating(ReviewNode* head)
+{
+    double sum = 0.0;
+    int count = 0;
+    ReviewNode* current = head;
+    while (current)// while current is not null
+    {
+        sum += current->rating;
+        count++;
+        current = current->next;
+    }
+    return count > 0 ? sum / count : 0.0;
 }
